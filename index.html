@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>warung clone</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #1e3a8a;
+            color: #f0f0f0;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #3b82f6;
+        }
+        
+        h1 {
+            color: #93c5fd;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-transform: lowercase;
+        }
+        
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .nav-btn {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            text-transform: lowercase;
+        }
+        
+        .nav-btn:hover {
+            background-color: #1d4ed8;
+            transform: translateY(-2px);
+        }
+        
+        .active {
+            background-color: #1e40af;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .dashboard {
+            background-color: #1e40af;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        
+        .dashboard h2 {
+            color: #93c5fd;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            text-transform: lowercase;
+        }
+        
+        .boxes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+        }
+        
+        .box {
+            background-color: #2563eb;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+        }
+        
+        .box h3 {
+            color: #bfdbfe;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #3b82f6;
+            padding-bottom: 8px;
+            text-transform: lowercase;
+        }
+        
+        .skill-item {
+            margin-bottom: 12px;
+        }
+        
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        .skill-bar {
+            height: 10px;
+            background-color: #1e3a8a;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .skill-level {
+            height: 100%;
+            background-color: #10b981;
+        }
+        
+        .info-item {
+            display: flex;
+            margin-bottom: 10px;
+            border-bottom: 1px dashed #3b82f6;
+            padding-bottom: 8px;
+        }
+        
+        .info-label {
+            font-weight: bold;
+            color: #bfdbfe;
+            width: 150px;
+        }
+        
+        .product-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .product-item {
+            background-color: #1e3a8a;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #3b82f6;
+        }
+        
+        .product-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            color: #bfdbfe;
+        }
+        
+        .product-price-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .product-price {
+            color: #10b981;
+            font-weight: bold;
+        }
+        
+        .product-checkbox {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        
+        .product-desc {
+            font-size: 0.9rem;
+            color: #dbeafe;
+            margin-top: 8px;
+        }
+        
+        .add-cart-btn {
+            background-color: #10b981;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+            text-transform: lowercase;
+        }
+        
+        .add-cart-btn:hover {
+            background-color: #0da271;
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #1e3a8a;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .cart-info {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .cart-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .remove-btn {
+            background-color: #ef4444;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .remove-btn:hover {
+            background-color: #dc2626;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .action-btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            text-transform: lowercase;
+        }
+        
+        .buy-btn {
+            background-color: #10b981;
+            color: white;
+        }
+        
+        .buy-btn:hover {
+            background-color: #0da271;
+        }
+        
+        .exit-btn {
+            background-color: #6b7280;
+            color: white;
+        }
+        
+        .exit-btn:hover {
+            background-color: #4b5563;
+        }
+        
+        .payment-info {
+            background-color: #1e3a8a;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .payment-method {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #3b82f6;
+        }
+        
+        .payment-label {
+            font-weight: bold;
+            color: #bfdbfe;
+        }
+        
+        .payment-value {
+            color: #dbeafe;
+        }
+        
+        .payment-btn {
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            padding: 6px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .payment-btn:hover {
+            background-color: #2563eb;
+        }
+        
+        .cart-summary {
+            background-color: #1e40af;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+        
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #bfdbfe;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 2px solid #3b82f6;
+        }
+        
+        .empty-cart {
+            text-align: center;
+            padding: 40px;
+            color: #9ca3af;
+            font-style: italic;
+        }
+        
+        .checkbox-status {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #1e3a8a;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            color: #dbeafe;
+        }
+        
+        .checkbox-status span {
+            color: #10b981;
+            font-weight: bold;
+        }
+        
+        .no-select {
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+        
+        @media (max-width: 768px) {
+            .boxes {
+                grid-template-columns: 1fr;
+            }
+            
+            nav {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .cart-item {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+            
+            .cart-info {
+                flex-direction: column;
+                gap: 10px;
+                width: 100%;
+            }
+            
+            .cart-actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
+            
+            .product-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .product-price-container {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>warung clone</h1>
+    </header>
+    
+    <nav>
+        <button class="nav-btn active" data-target="main">dashboard utama</button>
+        <button class="nav-btn" data-target="file">file menu</button>
+        <button class="nav-btn" data-target="jasa">jasa menu</button>
+        <button class="nav-btn" data-target="bot">bot menu</button>
+        <button class="nav-btn" data-target="cart">keranjang</button>
+    </nav>
+    
+    
+    <div id="main" class="dashboard">
+        <h2>hola sir what your want? klick button di atas ya brother</h2>
+        
+        <div class="boxes">
+            <div class="box">
+                <h3>my skill</h3>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>python</span>
+                        <span>80%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-level" style="width: 80%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>javascript</span>
+                        <span>80%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-level" style="width: 80%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>html</span>
+                        <span>80%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-level" style="width: 80%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>css</span>
+                        <span>90%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-level" style="width: 90%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>c++</span>
+                        <span>70%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-level" style="width: 70%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>lua</span>
+                        <span>70%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-level" style="width: 70%"></div>
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>php</span>
+                        <span>60%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-level" style="width: 60%"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="box">
+                <h3>information</h3>
+                <div class="info-item">
+                    <div class="info-label">name:</div>
+                    <div class="info-value">irfan</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">umur:</div>
+                    <div class="info-value">21</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">project compelete:</div>
+                    <div class="info-value">71</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">penghasilan:</div>
+                    <div class="info-value">uknown</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">type cewek:</div>
+                    <div class="info-value">imut + cantik + manis + setia</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">skill bot:</div>
+                    <div class="info-value">80%</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">skill web:</div>
+                    <div class="info-value">76%</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div id="file" class="dashboard" style="display: none;">
+        <h2>hola sir ini dia file menu nya 👍</h2>
+        
+        <div class="boxes">
+            <div class="box">
+                <h3>file checker mobile legends</h3>
+                <div class="product-list">
+                    <div class="product-item">
+                        <div class="product-header">
+                            <span class="no-select">50 line</span>
+                            <div class="product-price-container">
+                                <span class="product-price">15k</span>
+                                <input type="checkbox" class="product-checkbox" data-product="file checker ml 50 line" data-price="15000">
+                            </div>
+                        </div>
+                        <div class="product-header">
+                            <span class="no-select">100 line</span>
+                            <div class="product-price-container">
+                                <span class="product-price">35k</span>
+                                <input type="checkbox" class="product-checkbox" data-product="file checker ml 100 line" data-price="35000">
+                            </div>
+                        </div>
+                        <div class="product-header">
+                            <span class="no-select">200 line</span>
+                            <div class="product-price-container">
+                                <span class="product-price">75k</span>
+                                <input type="checkbox" class="product-checkbox" data-product="file checker ml 200 line" data-price="75000">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-desc">
+                        <h4>information file</h4>
+                        <p>- kenapa mahal? karna valid 80%</p>
+                        <p>- anti double data</p>
+                        <p>- anti rakyat</p>
+                        <p>- file fresh</p>
+                        <p>- combo fresh</p>
+                        <p>- full information</p>
+                    </div>
+                    
+                    <div class="checkbox-status">item terpilih: <span id="ml-selected">0</span></div>
+                    <button class="add-cart-btn" id="add-ml">add cart item terpilih</button>
+                </div>
+            </div>
+            
+            <div class="box">
+                <h3>file free fire</h3>
+                <div class="product-list">
+                    <div class="product-item">
+                        <div class="product-header">
+                            <span class="no-select">50 line</span>
+                            <div class="product-price-container">
+                                <span class="product-price">50k</span>
+                                <input type="checkbox" class="product-checkbox" data-product="file free fire 50 line" data-price="50000">
+                            </div>
+                        </div>
+                        <div class="product-header">
+                            <span class="no-select">200 line</span>
+                            <div class="product-price-container">
+                                <span class="product-price">80k</span>
+                                <input type="checkbox" class="product-checkbox" data-product="file free fire 200 line" data-price="80000">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-desc">
+                        <h4>information file</h4>
+                        <p>- kenapa mahal? karna checker new valid 60%</p>
+                        <p>- filter banned</p>
+                        <p>- combo fresh</p>
+                        <p>- anti rakyat</p>
+                        <p>- full info</p>
+                    </div>
+                    
+                    <div class="checkbox-status">item terpilih: <span id="ff-selected">0</span></div>
+                    <button class="add-cart-btn" id="add-ff">add cart item terpilih</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div id="jasa" class="dashboard" style="display: none;">
+        <h2>hello sir ini jasa menu yang ada</h2>
+        
+        <div class="boxes">
+            <div class="box">
+                <h3>jasa pembuatan bot</h3>
+                <div class="product-list">
+                    <div class="product-item">
+                        <div class="product-header">
+                            <span class="no-select">telegram bug</span>
+                            <div class="product-price-container">
+                                <span class="product-price">35k</span>
+                                <input type="checkbox" class="product-checkbox" data-product="jasa bot telegram bug" data-price="35000">
+                            </div>
+                        </div>
+                        <div class="product-header">
+                            <span class="no-select">whatsapp bug</span>
+                            <div class="product-price-container">
+                                <span class="product-price">50k</span>
+                                <input type="checkbox" class="product-checkbox" data-product="jasa bot whatsapp bug" data-price="50000">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="checkbox-status">item terpilih: <span id="jasa-selected">0</span></div>
+                    <button class="add-cart-btn" id="add-jasa">add cart item terpilih</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div id="bot" class="dashboard" style="display: none;">
+        <h2>hola sir ini bot menunya</h2>
+        
+        <div class="boxes">
+            <div class="box">
+                <h3>list harga sewa bot md wa</h3>
+                <div class="product-list">
+                    <div class="product-item">
+                        <div class="product-header">
+                            <span class="no-select">3 hari</span>
+                            <div class="product-price-container">
+                                <span class="product-price">5k</span>
+                                <input type="checkbox" class="product-checkbox" data-product="sewa bot md wa 3 hari" data-price="5000">
+                            </div>
+                        </div>
+                        <div class="product-header">
+                            <span class="no-select">15 hari</span>
+                            <div class="product-price-container">
+                                <span class="product-price">15k</span>
+                                <input type="checkbox" class="product-checkbox" data-product="sewa bot md wa 15 hari" data-price="15000">
+                            </div>
+                        </div>
+                        <div class="product-header">
+                            <span class="no-select">30 hari (full)</span>
+                            <div class="product-price-container">
+                                <span class="product-price">20k</span>
+                                <input type="checkbox" class="product-checkbox" data-product="sewa bot md wa 30 hari" data-price="20000">
+                            </div>
+                        </div>
+                        <div class="product-header">
+                            <span class="no-select">3 bulan</span>
+                            <div class="product-price-container">
+                                <span class="product-price">25k</span>
+                                <input type="checkbox" class="product-checkbox" data-product="sewa bot md wa 3 bulan" data-price="25000">
+                            </div>
+                        </div>
+                        <div class="product-header">
+                            <span class="no-select">bot permanen</span>
+                            <div class="product-price-container">
+                                <span class="product-price">30k</span>
+                                <input type="checkbox" class="product-checkbox" data-product="sewa bot md wa permanen" data-price="30000">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-desc">
+                        <h4>information sewa bot</h4>
+                        <p>- fitur bot? 2514</p>
+                        <p>- bisa buat jaga gb</p>
+                        <p>- ada bug menu (jeda 35 menit)</p>
+                        <p>- react ch</p>
+                        <p>- dll</p>
+                    </div>
+                    
+                    <div class="checkbox-status">item terpilih: <span id="bot-md-selected">0</span></div>
+                    <button class="add-cart-btn" id="add-bot-md">add cart item terpilih</button>
+                </div>
+            </div>
+            
+            <div class="box">
+                <h3>list harga sewa bot bug wa</h3>
+                <div class="product-list">
+                    <div class="product-item">
+                        <div class="product-header">
+                            <span class="no-select">5 hari</span>
+                            <div class="product-price-container">
+                                <span class="product-price">25k</span>
+                                <input type="checkbox" class="product-checkbox" data-product="sewa bot bug wa 5 hari" data-price="25000">
+                            </div>
+                        </div>
+                        <div class="product-header">
+                            <span class="no-select">30 hari</span>
+                            <div class="product-price-container">
+                                <span class="product-price">50k</span>
+                                <input type="checkbox" class="product-checkbox" data-product="sewa bot bug wa 30 hari" data-price="50000">
+                            </div>
+                        </div>
+                        <div class="product-header">
+                            <span class="no-select">1 bulan</span>
+                            <div class="product-price-container">
+                                <span class="product-price">85k</span>
+                                <input type="checkbox" class="product-checkbox" data-product="sewa bot bug wa 1 bulan" data-price="85000">
+                            </div>
+                        </div>
+                        <div class="product-header">
+                            <span class="no-select">permanen</span>
+                            <div class="product-price-container">
+                                <span class="product-price">120k</span>
+                                <input type="checkbox" class="product-checkbox" data-product="sewa bot bug wa permanen" data-price="120000">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-desc">
+                        <h4>information sewa bot bug</h4>
+                        <p>- jeda only 20 menit</p>
+                        <p>- bebas bug tanpa takut kenon</p>
+                        <p>- bebas req sc</p>
+                        <p>- ready 20 sc</p>
+                        <p>- nokos dari kami</p>
+                        <p>- simple dan siap pakai</p>
+                    </div>
+                    
+                    <div class="checkbox-status">item terpilih: <span id="bot-bug-selected">0</span></div>
+                    <button class="add-cart-btn" id="add-bot-bug">add cart item terpilih</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div id="cart" class="dashboard" style="display: none;">
+        <h2>keranjang item barang sir</h2>
+        
+        <div id="cart-items">
+          
+            <div class="empty-cart">
+                <p>keranjang masih kosong bro 🗿</p>
+                <p>pilih item dulu di menu lain</p>
+            </div>
+        </div>
+        
+        <div class="cart-summary">
+            <div class="cart-total">
+                <span>total harga:</span>
+                <span id="total-price">0</span>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <button class="action-btn buy-btn" id="buy-btn">buy</button>
+            <button class="action-btn exit-btn" data-target="main">keluar</button>
+        </div>
+    </div>
+    
+    <div id="payment" class="dashboard" style="display: none;">
+        <h2>hola sir this payment menu</h2>
+        
+        <div class="payment-info">
+            <div class="payment-method">
+                <div class="payment-label">dana:</div>
+                <div class="payment-value">082313154822</div>
+            </div>
+            
+            <div class="payment-method">
+                <div class="payment-label">ovo:</div>
+                <div class="payment-value">082313154822</div>
+            </div>
+            
+            <div class="payment-method">
+                <div class="payment-label">gopay:</div>
+                <div class="payment-value">error</div>
+            </div>
+            
+            <div class="payment-method">
+                <div class="payment-label">qris:</div>
+                <a href="#" class="payment-btn" id="qris-btn">here</a>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <button class="action-btn exit-btn" data-target="main">keluar</button>
+        </div>
+    </div>
+    
+    <script>
+        
+        let cart = [];
+        let totalPrice = 0;
+        
+        
+        function showDashboard(dashboardId) {
+            
+            document.querySelectorAll('.dashboard').forEach(dash => {
+                dash.style.display = 'none';
+            });
+            
+           
+            document.getElementById(dashboardId).style.display = 'block';
+            
+           
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            
+            if (dashboardId !== 'main') {
+                document.querySelector(`[data-target="${dashboardId}"]`).classList.add('active');
+            } else {
+                document.querySelector('[data-target="main"]').classList.add('active');
+            }
+            
+            
+            if (dashboardId === 'cart') {
+                updateCartDisplay();
+            }
+        }
+        
+        
+        function addToCart(productName, price) {
+            
+            const existingItemIndex = cart.findIndex(item => item.name === productName);
+            
+            if (existingItemIndex !== -1) {
+                
+                cart[existingItemIndex].quantity += 1;
+            } else {
+                
+                cart.push({
+                    name: productName,
+                    price: price,
+                    quantity: 1
+                });
+            }
+            
+            
+            totalPrice += price;
+            
+           
+            updateCartDisplay();
+            
+           
+            alert(`"${productName}" udah masuk keranjang bang`);
+        }
+        
+        
+        function removeFromCart(index) {
+            totalPrice -= cart[index].price * cart[index].quantity;
+            
+            
+            cart.splice(index, 1);
+            
+          
+            updateCartDisplay();
+        }
+        
+        
+        function updateCartDisplay() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const totalPriceElement = document.getElementById('total-price');
+            
+           
+            const formatCurrency = (amount) => {
+                return `Rp ${amount.toLocaleString('id-ID')}`;
+            };
+            
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="empty-cart">
+                        <p>keranjang masih kosong bro 🗿</p>
+                        <p>pilih itemnya dulu ganteng 🥰</p>
+                    </div>
+                `;
+                totalPriceElement.textContent = formatCurrency(0);
+                return;
+            }
+            
+            
+            let cartHTML = '';
+            cart.forEach((item, index) => {
+                cartHTML += `
+                    <div class="cart-item">
+                        <div class="cart-info">
+                            <div>${item.name}</div>
+                            <div>jumlah: ${item.quantity}</div>
+                            <div>${formatCurrency(item.price * item.quantity)}</div>
+                        </div>
+                        <div class="cart-actions">
+                            <button class="remove-btn" data-index="${index}">hapus</button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            cartItemsContainer.innerHTML = cartHTML;
+            totalPriceElement.textContent = formatCurrency(totalPrice);
+            
+            
+            document.querySelectorAll('.remove-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    removeFromCart(index);
+                });
+            });
+        }
+        
+        
+        function updateCheckboxCount() {
+            
+            const mlCheckboxes = document.querySelectorAll('#file .product-checkbox');
+            let mlSelected = 0;
+            mlCheckboxes.forEach(cb => {
+                if (cb.checked) mlSelected++;
+            });
+            document.getElementById('ml-selected').textContent = mlSelected;
+            
+           
+            const ffCheckboxes = document.querySelectorAll('#file .box:nth-child(2) .product-checkbox');
+            let ffSelected = 0;
+            ffCheckboxes.forEach(cb => {
+                if (cb.checked) ffSelected++;
+            });
+            document.getElementById('ff-selected').textContent = ffSelected;
+            
+          
+            const jasaCheckboxes = document.querySelectorAll('#jasa .product-checkbox');
+            let jasaSelected = 0;
+            jasaCheckboxes.forEach(cb => {
+                if (cb.checked) jasaSelected++;
+            });
+            document.getElementById('jasa-selected').textContent = jasaSelected;
+            
+            
+            const botMdCheckboxes = document.querySelectorAll('#bot .box:nth-child(1) .product-checkbox');
+            let botMdSelected = 0;
+            botMdCheckboxes.forEach(cb => {
+                if (cb.checked) botMdSelected++;
+            });
+            document.getElementById('bot-md-selected').textContent = botMdSelected;
+            
+            
+            const botBugCheckboxes = document.querySelectorAll('#bot .box:nth-child(2) .product-checkbox');
+            let botBugSelected = 0;
+            botBugCheckboxes.forEach(cb => {
+                if (cb.checked) botBugSelected++;
+            });
+            document.getElementById('bot-bug-selected').textContent = botBugSelected;
+        }
+        
+        
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const target = this.getAttribute('data-target');
+                showDashboard(target);
+            });
+        });
+        
+        
+        document.querySelectorAll('.exit-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const target = this.getAttribute('data-target');
+                showDashboard(target);
+            });
+        });
+        
+       
+        document.querySelectorAll('.product-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', updateCheckboxCount);
+        });
+        
+        
+        document.getElementById('add-ml').addEventListener('click', function() {
+            const checkboxes = document.querySelectorAll('#file .box:nth-child(1) .product-checkbox');
+            let added = false;
+            
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                    const productName = cb.getAttribute('data-product');
+                    const price = parseInt(cb.getAttribute('data-price'));
+                    addToCart(productName, price);
+                    cb.checked = false;
+                    added = true;
+                }
+            });
+            
+            if (!added) {
+                alert("pilih item dulu bre 🗿");
+            }
+            
+            updateCheckboxCount();
+        });
+        
+        
+        document.getElementById('add-ff').addEventListener('click', function() {
+            const checkboxes = document.querySelectorAll('#file .box:nth-child(2) .product-checkbox');
+            let added = false;
+            
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                    const productName = cb.getAttribute('data-product');
+                    const price = parseInt(cb.getAttribute('data-price'));
+                    addToCart(productName, price);
+                    cb.checked = false;
+                    added = true;
+                }
+            });
+            
+            if (!added) {
+                alert("pilih item dulu bro 🗿");
+            }
+            
+            updateCheckboxCount();
+        });
+        
+        
+        document.getElementById('add-jasa').addEventListener('click', function() {
+            const checkboxes = document.querySelectorAll('#jasa .product-checkbox');
+            let added = false;
+            
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                    const productName = cb.getAttribute('data-product');
+                    const price = parseInt(cb.getAttribute('data-price'));
+                    addToCart(productName, price);
+                    cb.checked = false;
+                    added = true;
+                }
+            });
+            
+            if (!added) {
+                alert("pilih item dulu bre 🗿");
+            }
+            
+            updateCheckboxCount();
+        });
+        
+        
+        document.getElementById('add-bot-md').addEventListener('click', function() {
+            const checkboxes = document.querySelectorAll('#bot .box:nth-child(1) .product-checkbox');
+            let added = false;
+            
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                    const productName = cb.getAttribute('data-product');
+                    const price = parseInt(cb.getAttribute('data-price'));
+                    addToCart(productName, price);
+                    cb.checked = false;
+                    added = true;
+                }
+            });
+            
+            if (!added) {
+                alert("pilih item dulu bro 🗿");
+            }
+            
+            updateCheckboxCount();
+        });
+        
+        
+        document.getElementById('add-bot-bug').addEventListener('click', function() {
+            const checkboxes = document.querySelectorAll('#bot .box:nth-child(2) .product-checkbox');
+            let added = false;
+            
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                    const productName = cb.getAttribute('data-product');
+                    const price = parseInt(cb.getAttribute('data-price'));
+                    addToCart(productName, price);
+                    cb.checked = false;
+                    added = true;
+                }
+            });
+            
+            if (!added) {
+                alert("pilih itemnya dulu bre 🗿");
+            }
+            
+            updateCheckboxCount();
+        });
+        
+        
+        document.getElementById('buy-btn').addEventListener('click', function() {
+            if (cart.length === 0) {
+                alert("keranjang kosong bro, pilih item dulu 🗿");
+                return;
+            }
+            
+            showDashboard('payment');
+        });
+        
+        
+        document.getElementById('qris-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            const message = "mas irfan minta qris nya dong";
+            const phone = "6282313154822";
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
+        });
+        
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            showDashboard('main');
+            updateCheckboxCount();
+            
+           
+            setInterval(() => {
+                const cartButton = document.querySelector('[data-target="cart"]');
+                if (cart.length > 0) {
+                    cartButton.textContent = `keranjang (${cart.length})`;
+                } else {
+                    cartButton.textContent = 'keranjang';
+                }
+            }, 100);
+        });
+    </script>
+</body>
+  </html>
